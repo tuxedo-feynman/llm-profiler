@@ -163,8 +163,10 @@ trap cleanup EXIT INT TERM
 
 echo "[profiler] Starting inference..."
 
-# Tee stdout and stderr live to terminal and to files
+# Tee stdout and stderr live to terminal and to files; stdin from /dev/null
+# prevents llama-cli from entering interactive mode after generation completes
 "${LLAMA_CMD[@]}" \
+    < /dev/null \
     > >(tee "$OUT_DIR/stdout.txt") \
     2> >(tee "$OUT_DIR/stderr.txt" >&2) &
 LLAMA_PID=$!
