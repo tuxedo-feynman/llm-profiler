@@ -13,15 +13,24 @@ Profiles `llama-cli` runs on macOS. Captures system metrics while inference runs
 ```bash
 ./profile_llama.sh \
   --llama-binary ~/llama.cpp/build/bin/llama-cli \
-  --model models/qwen3-4b-q4_k_m.gguf \
-  --prompt prompts/short.txt \
   --out runs/qwen3-4b-q4-short \
-  --n-predict 256 \
-  --ctx-size 4096 \
-  --threads 4
+  --prompt prompts/short.txt \
+  -- -m models/qwen3-4b-q4_k_m.gguf -n 256 -c 4096 -t 4
 ```
 
-Optional flags: `--batch-size N`, `--ngl N` (GPU layers).
+Everything after `--` is passed directly to llama-cli unchanged. `--prompt` is optional — it records the prompt file in metadata and injects `--file` into the llama-cli call. Without it, pass `-f` or `-p` yourself in the llama-cli args.
+
+```bash
+# HuggingFace model
+./profile_llama.sh --llama-binary ./llama-cli --out runs/hf-test \
+  --prompt prompts/short.txt \
+  -- -hf Qwen/Qwen3-4B-GGUF -n 256 -c 4096 -t 4
+
+# With mlock and flash attention
+./profile_llama.sh --llama-binary ./llama-cli --out runs/mlock-test \
+  --prompt prompts/short.txt \
+  -- -m models/qwen.gguf --mlock -fa -n 256 -c 4096 -t 4
+```
 
 Make scripts executable first:
 
