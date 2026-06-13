@@ -1,0 +1,1 @@
+Write a concise but clear explanation of how attention works in transformers. Include the roles of queries, keys, and values. Avoid equations unless necessary.

@@ -1,0 +1,13 @@
+# long_context.txt — fill this in before use
+#
+# Purpose: test prompt eval speed and context pressure with a large input.
+# Target: 2000–4000 tokens of pasted text followed by a specific question.
+#
+# Example structure:
+#   [paste a long article, document, or code file here]
+#
+#   ---
+#   Question: [ask something specific about the text above]
+#
+# A Wikipedia article or technical blog post works well.
+# Aim for enough text that prompt eval time is measurable (several seconds).
